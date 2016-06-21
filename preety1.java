@@ -5,7 +5,9 @@ public class Greeting{
 public string getMessage(){
   return "hello world";
 }
- public double getMessage(){
+ public string getMessage(){
   return "sapient";
 }
+public double getAmount(){
+ return 2;
 }
