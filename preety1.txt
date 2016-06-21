@@ -9,3 +9,6 @@ public getAmount(){
 return 2;
 
 }
+public string getMessage(){
+ return"sapient";
+}
