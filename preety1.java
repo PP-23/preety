@@ -8,6 +8,9 @@ public string getMessage(){
  public string getMessage(){
   return "sapient";
 }
+public double getAmount(){
+ return 2;
+}
 public string getMessage(){
- return "hello";
+ return "hi";
 }
