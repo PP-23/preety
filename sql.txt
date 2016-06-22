@@ -1,0 +1,45 @@
+select * from customer2
+select * from invoice
+select c.customerno,c.name,c.email,c.phone,i.invoiceno,i.invoicedate,i.amount from customer2 c,invoice i where c.customerno=i.customerref
+select c.customerno,c.name,c.email,c.phone,i.invoiceno,i.invoicedate,i.amount from customer2 c,invoice i where c.customerno=i.customerref(+)
+select * from customer2 c,invoice i where c.customerno(+)=i.customerref
+select * from invoice where customerref=(select customerno from customer2 where name='ram')
+select b.invoiceno from invoice a,invoice b where a.customerref=103 and a.invoicedate=b.invoicedate;
+
+create or replace  procedure add_customer(p_eno customer2.customerno%type,p_name customer2.name%type,p_email customer2.email%type,p_phone customer2.phone%type)
+is
+begin
+insert into customer2 values(p_eno,p_name,p_email,p_phone);
+end;
+/
+
+begin
+ add_customer(107,'raman','raman123@gmail.com',1234567891);
+end add_customer;
+/
+
+
+select * from customer2
+
+create or replace procedure query_customer(p_eno  in  customer2.customerno%type,p_name  out  customer2.name%type,p_email  out  customer2.email%type,p_phone  out  customer2.phone%type)
+is
+begin
+select name,email,phone into p_name,p_email,p_phone from customer2 where customerno=p_eno;
+exception
+when no_data_found then
+raise_application_error(-20000,'customer does not exist');
+end;
+
+declare
+v_name customer2.name%type;
+v_email customer2.email%type;
+v_phone customer2.phone%type;
+begin
+query_customer(107,v_name,v_email,v_phone);
+ dbms_output.put_line(v_name);
+ dbms_output.put_line(v_email);
+ dbms_output.put_line(v_phone);
+end;
+
+
+
